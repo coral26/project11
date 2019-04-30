@@ -1,0 +1,14 @@
+<launch>
+    <include file="$(find project11)/launch/camera_1.launch" />
+    <include file="$(find project11)/launch/camera_2.launch" />
+    <include file="$(find project11)/launch/camera_3.launch" />
+    <include file="$(find project11)/launch/camera_4.launch" />
+    <include file="$(find project11)/launch/camera_5.launch" />
+    <include file="$(find darknet_ros)/launch/yolo_v3_cw4_cam1.launch" />
+
+    <node pkg="rosbag" type="record" name="darknet_bounding_boxes" args="-o /media/exfat/jetson2/nodes/darknet_bounding_boxes --split --duration=30m /darknet_ros/bounding_boxes" />
+    <node pkg="rosbag" type="record" name="darknet_detection_images" args="-o /media/exfat/jetson2/nodes/darknet_detection_images --split --duration=30m --bz2 /darknet_ros/detection_image" />
+    
+    <node pkg="rosbag" type="record" name="camera_1" args="-o /media/exfat/jetson2/nodes/camera_1 --split --duration=30m --bz2 /camera_1/image_raw" />
+
+</launch>
