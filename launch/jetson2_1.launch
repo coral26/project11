@@ -4,9 +4,10 @@
     <include file="$(find project11)/launch/camera_3.launch" />
     <include file="$(find project11)/launch/camera_4.launch" />
     <include file="$(find project11)/launch/camera_5.launch" />
-    <include file="$(find darknet_ros)/launch/yolo_v3_cw4_cam1.launch" />
+    <node pkg="camera_multiplexer" type="camera_multiplexer.py" name="camera_multiplexer" />
+    <include file="$(find darknet_ros)/launch/yolo_v3_cw4_multi_cam.launch" />
 
-    <node pkg="rosbag" type="record" name="darknet_bounding_boxes" args="-o /media/exfat/jetson2/nodes/darknet_bounding_boxes --split --duration=30m /darknet_ros/bounding_boxes" />
+    <node pkg="rosbag" type="record" name="darknet_bounding_boxes" args="-o /media/exfat/jetson2/nodes/darknet_bounding_boxes_multi_cam --split --duration=10m /darknet_ros/bounding_boxes" />
     
 
 </launch>
