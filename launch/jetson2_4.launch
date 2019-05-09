@@ -1,0 +1,22 @@
+<launch>
+    <include file="$(find project11)/launch/camera_1.launch" />
+    <include file="$(find project11)/launch/camera_2.launch" />
+    <include file="$(find project11)/launch/camera_3.launch" />
+    <!-- include file="$(find project11)/launch/camera_4.launch" / -->
+    <include file="$(find project11)/launch/camera_5.launch" />
+    <node pkg="camera_multiplexer" type="camera_multiplexer.py" name="camera_multiplexer" />
+    <include file="$(find darknet_ros)/launch/yolo_v3_cw4_multi_cam.launch" />
+
+
+    <node pkg="rosbag" type="record" name="darknet_bounding_boxes" args="-o /media/exfat/jetson2/nodes/darknet_bounding_boxes_multi_cam --split --duration=15m /darknet_ros/bounding_boxes" />
+    <node pkg="rosbag" type="record" name="darknet_detection_images" args="-o /media/exfat/jetson2/nodes/darknet_detection_images --split --duration=15m --bz2 -b 1024 /darknet_ros/detection_image" />
+    <node pkg="rosbag" type="record" name="camera_1" args="-o /media/exfat/jetson2/nodes/camera_1 --split --duration=15m --bz2 -b 1024 /camera_1/image_raw" />
+    <node pkg="rosbag" type="record" name="camera_2" args="-o /media/exfat/jetson2/nodes/camera_2 --split --duration=15m --bz2 -b 1024 /camera_2/image_raw" />
+    <node pkg="rosbag" type="record" name="camera_3" args="-o /media/exfat/jetson2/nodes/camera_3 --split --duration=15m --bz2 -b 1024 /camera_3/image_raw" />
+    <node pkg="rosbag" type="record" name="camera_5" args="-o /media/exfat/jetson2/nodes/camera_5 --split --duration=15m --bz2 -b 1024 /camera_5/image_raw" />        
+    <node pkg="rosbag" type="record" name="camera_1_compressed" args="-o /media/exfat/jetson2/nodes/camera_1_compressed --split --duration=15m -b 1024 /camera_1/image_raw/compressed" />
+    <node pkg="rosbag" type="record" name="camera_2_compressed" args="-o /media/exfat/jetson2/nodes/camera_2_compressed --split --duration=15m -b 1024 /camera_2/image_raw/compressed" />
+    <node pkg="rosbag" type="record" name="camera_3_compressed" args="-o /media/exfat/jetson2/nodes/camera_3_compressed --split --duration=15m -b 1024 /camera_3/image_raw/compressed" />
+    <node pkg="rosbag" type="record" name="camera_5_compressed" args="-o /media/exfat/jetson2/nodes/camera_5_compressed --split --duration=15m -b 1024 /camera_5/image_raw/compressed" />
+
+</launch>
