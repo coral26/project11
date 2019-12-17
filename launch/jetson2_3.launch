@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find project11)/launch/camera_1.launch" />
+    <include file="$(find project11)/launch/camera_2.launch" />
+    <include file="$(find project11)/launch/camera_3.launch" />
+    <include file="$(find project11)/launch/camera_4.launch" />
+    <include file="$(find project11)/launch/camera_5.launch" />
+    <node pkg="camera_multiplexer" type="camera_multiplexer.py" name="camera_multiplexer" />
+    <include file="$(find darknet_ros)/launch/yolo_v3_cw4_multi_cam.launch" />
+
+</launch>
